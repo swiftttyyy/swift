@@ -1,17 +1,19 @@
 /* The Modal (background) */
 .swiper {
 	position: fixed;
-	top:.5rem;
+	padding: .3rem 0;
 	text-align: center;
 	width: 100%;
+	background-color: #605436;
+   color: rgb(255, 255, 255);
   }
+
 .swiper-slide{
 	width: 100%;
 	text-align: center;
 }
 .navbar-brand img, footer img{
-	width: 13rem;
-	height: 2rem;
+	width: 7rem;
 }
 .top-menu{
 	margin-top: 1rem !important;
@@ -418,15 +420,15 @@ ul.differnce>li.minus
 
 .bg-blue-menu
 {
-	background:#181A20;
+	background:#2c2c2c;
 	font-style: normal;
 	font-weight: 500;
 	font-size: 13px;
 	line-height: 16px;
 	flex: 0 0 auto;
-	padding-top: 30px;
+	padding-top: 40px;
 	padding-bottom: 17px;
-	height: 72px;
+	height: 90px;
 	width: 100%;
 }
 
@@ -473,7 +475,7 @@ ul.differnce>li.minus
 	width:100%;
 	height:100%;
 	min-height: 200px;
-	background: #111;
+	background: #2c2c2c;
 	top:0px;left:0px;
 	margin: auto auto;
 	z-index: 999;
@@ -537,7 +539,6 @@ ul.differnce>li.minus
 	cursor: pointer;
 	display:inline-block;
 	position: relative;
-	z-index: 99;
 }
 
 .language-box > .choose-language

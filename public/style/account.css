@@ -13,18 +13,15 @@ myBalance
 	color: #ffffff;
 	width:100%;
 }
-
+a .navbar-brand{
+  padding-top: 2rem !important;
+}
 .blue-box span
 { 
 	float:left;
 	margin-right:10px;
 }
 
-
-.bg-blue-menu
-{
-	padding-top:4rem!important;
-}
 
 .top-menu
 {

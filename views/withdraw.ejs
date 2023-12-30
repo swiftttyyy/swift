@@ -219,7 +219,7 @@ table.blank td {font-size:14px;border-width: 0px;padding: 8px;border-style: soli
     		<div class="row">
     			<div class="col-xl-5">
     				<div>Account Balance</div>
-					<b class="curr-balance green">$ 0.00</b>
+					<b class="curr-balance green">$<%= useraccount.deposit + useraccount.profit %></b>
     			</div>
     			<div class="col-xl-7 text-right">
     				<div>Minimum withdrawal amount</div>
@@ -348,9 +348,12 @@ table.blank td {font-size:14px;border-width: 0px;padding: 8px;border-style: soli
 	const swiper = new Swiper('.swiper', {
   // Optional parameters
   
+  speed: 1000,
   direction: 'horizontal',
   loop: true,
-  autoplay: true,
+  autoplay: {
+	delay: 8000
+  },
   slidesPerView: 1,
   centeredSlides: true,
   allowTouchMove: false
