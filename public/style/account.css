@@ -6,26 +6,22 @@ myBalance
 
 .blue-box
 {
-	background: #192441;
+	background: #1111;
 	border-radius: 5px;
 	padding:10px 20px;
 	font-weight: bold;
 	color: #ffffff;
 	width:100%;
 }
-
+a .navbar-brand{
+  padding-top: 2rem !important;
+}
 .blue-box span
 { 
 	float:left;
 	margin-right:10px;
 }
 
-
-.bg-blue-menu
-{
-	background: #192441!important;
-	padding:0px!important;
-}
 
 .top-menu
 {
@@ -105,7 +101,7 @@ font-size: 14px;
 {
 	text-decoration: none;
 	background: #131C35;
-	border-left:4px solid #FF4D4D;
+	border-left:4px solid #b29758;
 	color:#fff;
 }
 
@@ -144,7 +140,7 @@ font-size: 14px;
 .dropdown-menu a:hover
 {
 	background:transparent;
-	color:#FF7272!important;
+	color:#b29758!important;
 	text-decoration: none;
 }
 
@@ -157,7 +153,7 @@ font-size: 14px;
 {
 	color:#fff;
 	background: #131C35;
-	border-left:4px solid #FF4D4D;
+	border-left:4px solid #b29758;
 }
 
 .dropdown.show .dropdown-toggle span
@@ -279,3 +275,4 @@ input:checked + .slider:before {
     background: rgba(255, 255, 255, .1);
     border-radius: 50%;
 }
+
