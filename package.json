@@ -18,9 +18,11 @@
     "firebase": "^10.6.0",
     "firebase-functions": "^4.5.0",
     "mongoose": "^8.0.0",
+    "netlify-lambda": "^2.0.16",
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.7",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "serverless-http": "^3.2.0"
   },
   "description": "",
   "engines": {

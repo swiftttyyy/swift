@@ -12,7 +12,6 @@ const dashboard = require("./routes/dashboard")
 const dbURL = "mongodb+srv://davidmiller4504:LTSVp7IMEBKNMcUf@cluster0.zhgo4fr.mongodb.net/?retryWrites=true&w=majority" 
 //'mongodb://localhost:27017/swift'     
 const MongoDBStore = require("connect-mongo")
-const functions = require("firebase-functions")
 mongoose.connect( dbURL,{
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -174,5 +173,4 @@ app.listen(4000, ()=>{
     console.log("Listening")
 })
 
-exports.api = functions.https.onRequest(app)
 

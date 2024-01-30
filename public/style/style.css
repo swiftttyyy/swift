@@ -426,9 +426,8 @@ ul.differnce>li.minus
 	font-size: 13px;
 	line-height: 16px;
 	flex: 0 0 auto;
-	padding-top: 40px;
+	padding-top: 17px;
 	padding-bottom: 17px;
-	height: 90px;
 	width: 100%;
 }
 
@@ -2064,3 +2063,6 @@ input[name="css-tabs"]
 	text-align: center;
 	color: green;
 }
+.swiper{
+	display: none !important;
+   }
