@@ -10,7 +10,10 @@ router.get("/", async(req,res)=>{
     if(!req.session.user_id){
       res.redirect("/")
     } 
-     res.render("dashboard",{useraccount : user})
+    else{
+           res.render("dashboard",{useraccount : user})
+
+    }
     
   })
 
@@ -21,7 +24,9 @@ router.get(`/deposit`, async (req,res)=>{
     if(!req.session.user_id){
       res.redirect("/")
     } 
-    res.render("deposit",{useraccount : user})
+    else{
+          res.render("deposit",{useraccount : user})
+    }
 })
 
 router.get("/withdraw", async(req,res) =>{
@@ -31,7 +36,9 @@ router.get("/withdraw", async(req,res) =>{
     if(!req.session.user_id){
       res.redirect("/")
     } 
-    res.render("withdraw",{useraccount : user})
+    else{
+          res.render("withdraw",{useraccount : user})
+    }
 })
 router.get("/withdraw_history", async(req,res) =>{
     const useremail = req.query.name
@@ -40,7 +47,9 @@ router.get("/withdraw_history", async(req,res) =>{
     if(!req.session.user_id){
       res.redirect("/")
     } 
-    res.render("withdraw_history",{useraccount : user})
+    else{
+          res.render("withdraw_history",{useraccount : user})
+    }
 })
 router.get("/checkout", async (req,res) => {
   const useremail = req.query.name
@@ -49,7 +58,9 @@ router.get("/checkout", async (req,res) => {
   if(!req.session.user_id){
     res.redirect("/login")
   } 
-  res.render("checkout")
+  else{
+      res.render("checkout")
+  }
 })
 
 
