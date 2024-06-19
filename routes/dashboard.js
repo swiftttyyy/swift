@@ -51,7 +51,7 @@ router.get("/withdraw_history", async(req,res) =>{
           res.render("withdraw_history",{useraccount : user})
     }
 })
-router.get("/checkout", async (req,res) => {
+router.get("/goldcheckout", async (req,res) => {
   const useremail = req.query.name
   let name = res.app.get("name")   
   const user = await User.findOne({username:name})
@@ -59,9 +59,32 @@ router.get("/checkout", async (req,res) => {
     res.redirect("/login")
   } 
   else{
-      res.render("checkout")
+      res.render("goldcheckout")
   }
 })
+router.get("/silvercheckout", async (req,res) => {
+  const useremail = req.query.name
+  let name = res.app.get("name")   
+  const user = await User.findOne({username:name})
+  if(!req.session.user_id){
+    res.redirect("/login")
+  } 
+  else{
+      res.render("silvercheckout")
+  }
+})
+router.get("/startercheckout", async (req,res) => {
+  const useremail = req.query.name
+  let name = res.app.get("name")   
+  const user = await User.findOne({username:name})
+  if(!req.session.user_id){
+    res.redirect("/login")
+  } 
+  else{
+      res.render("startercheckout")
+  }
+})
+
 
 
 

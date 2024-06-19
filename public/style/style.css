@@ -2069,7 +2069,7 @@ input[name="css-tabs"]
 	display: flex;
 	justify-content: space-evenly;
 }
-.invest-tab{
+.invest-tab {
 	background-color: #fff;
 	padding: 2rem 2rem;
 	color: #57400b;
@@ -2082,8 +2082,24 @@ input[name="css-tabs"]
 	margin-bottom: 2rem;
 	
 }
+
 .invest-tab h5{
 	font-weight: 600;
+}
+.h5-1{
+	color:#CD7F32
+}
+.h5-2{
+ color: #8a8989;
+}
+.h5-3{
+	color: #FFD700;
+}
+.h5-img img{
+width: 8rem;
+}
+.invest-tab h5:nth-of-type(2){
+	color: #C0C0C0;
 }
 .invest-tab button{
 	border:none;
