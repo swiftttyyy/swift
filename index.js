@@ -167,7 +167,12 @@ app.get("/about_us", (req,res)=>{
 app.get("/help", (req,res)=>{
   res.render("support")
 }) 
-
+app.get("/faq", (req,res) => {
+  res.render("faq")
+})
+app.get("/support", (req,res)=>{
+  res.render("request")
+})
 
 
 app.listen(4000, ()=>{
