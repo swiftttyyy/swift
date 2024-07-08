@@ -2157,12 +2157,14 @@ ol li:before {
     color: var(--fontcolor)
 }
 
-
+.table-container{
+	margin-bottom: 10vh;
+}
 table { 
 
     border-collapse: collapse;
     border-spacing: 0;
-    width: 80%;
+    width: 80% !important;
     margin: auto;
     border: 1px solid #5ec576;
     text-align: center;
