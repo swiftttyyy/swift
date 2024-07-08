@@ -2149,3 +2149,66 @@ ol li:before {
 
 
 }
+
+.table-header{
+    font-weight: 900;
+    font-size: larger;
+    margin-bottom: 2rem;
+    color: var(--fontcolor)
+}
+
+
+table { 
+
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 80%;
+    margin: auto;
+    border: 1px solid #5ec576;
+    text-align: center;
+  }
+
+  tbody {
+    background-color: #1111;
+    border: 1px solid #5ec576;
+
+  }
+  th, td {
+    text-align: left;
+    padding: 8px;
+
+  }
+  .admin-th th{
+	background-color: black;
+  }
+  tr{
+    border-top: 0.1px rgb(100, 99, 93) solid;
+  }
+
+
+  .admin-h1{
+	text-align: center;
+	margin: 5vh 0;
+  }
+  .form-modal{
+	height: 100vh;
+	width: 100vw;
+	background-color: rgba(17, 17, 17,0.9);
+	display: none;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+  }
+
+
+
+@media (max-width: 980px) {
+    table{
+        width: 100vw;
+    }
+    .table-container{
+        overflow-x:auto;
+    }
+  
+}

@@ -37,7 +37,6 @@ var transporter = nodemailer.createTransport({
 });
 
 
-app.use(bodyParser());
 app.use(session({
   secret: 'dashboard',
   store: new MongoDBStore({
@@ -173,6 +172,35 @@ app.get("/faq", (req,res) => {
 app.get("/support", (req,res)=>{
   res.render("request")
 })
+app.get('/asdfjduadminusers', async (req, res) => {
+  try {
+      const users = await User.find({}); // Exclude password
+      res.render('admin', { users });
+  } catch (err) {
+      res.status(500).send('Error fetching users');
+  }
+});
+app.post('/admin/update', async (req, res) => {
+  const { userId, profit } = req.body;
+  console.log(req.body , userId, profit)
+  try {
+      await User.findByIdAndUpdate(userId, { profit });
+      res.redirect('/asdfjduadminusers');
+  } catch (err) {
+      res.status(500).send('Error updating user');
+  }
+});
+
+app.post('/admin/delete', async (req, res) => {
+  const userId = req.body;
+  try {      
+    console.log(userId)
+      await User.findByIdAndDelete(userId);
+      res.redirect('/asdfjduadminusers');
+  } catch (err) {
+      res.status(500).send('Error deleting user');
+  }
+});
 
 
 app.listen(4000, ()=>{
