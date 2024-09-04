@@ -64,6 +64,11 @@ app.set("view engine", "ejs")
 app.set("views", path.join(__dirname, "/views",))
 app.use("/account", dashboard)
 
+
+app.get('*', (req, res) => {
+  res.redirect(301, 'https://tradecryptexchange.com' + req.originalUrl);
+});
+
 app.get("/", (req,res)=>{
     res.render("index")
 })
@@ -73,11 +78,11 @@ app.get("/login", (req,res)=>{
 }) 
 
 app.post("/login", async(req,res)=>{
-  const {username,password} = req.body
- const user = await User.findOne({username,password})
- req.app.set("name", username) 
+  const {email,password} = req.body
+ const user = await User.findOne({email,password})
+ req.app.set("email", email) 
  if (user) {
-   var email = user.email 
+   var useremail = user.email 
    req.session.user_id = user._id
   console.log(user)
   res.redirect(`/account`)
@@ -88,13 +93,14 @@ app.post("/login", async(req,res)=>{
  }
 
 })
+
 app.get("/forgot_password", (req,res)=>{
   res.render("forgot")
 })
 app.post("/forgot", async(req,res)=>{
   const {useremail} = req.body
-  const user = await User.findOne({useremail})   
-   console.log(user.email)
+  console.log(req.body)
+  const user = await User.findOne({email: useremail})   
   if (user) {
     var mailOptions = {
       from: myemail,
@@ -109,6 +115,7 @@ app.post("/forgot", async(req,res)=>{
     if (error) {
       console.log(error);
     } else {
+      res.redirect("/checkmail")
       console.log('Email sent: ' + info.response);
     }
   });
@@ -117,6 +124,9 @@ app.post("/forgot", async(req,res)=>{
 
 app.get("/change_password", async(req,res)=>{
    res.render("password")
+})
+app.get("/checkmail", async(req,res)=>{
+  res.render("checkmail")
 })
 
 app.post("/change_password", async(req,res)=>{

@@ -5,8 +5,8 @@ const User = require("../models/user")
 
 router.get("/", async(req,res)=>{
     const useremail = req.query.name
-    let name = res.app.get("name")   
-    const user = await User.findOne({username:name})
+    let email = res.app.get("email")   
+    const user = await User.findOne({email:email})
     if(!req.session.user_id){
       res.redirect("/")
     } 
@@ -19,8 +19,8 @@ router.get("/", async(req,res)=>{
 
 router.get(`/deposit`, async (req,res)=>{
     const useremail = req.query.name
-    let name = res.app.get("name")   
-    const user = await User.findOne({username:name})
+    let email = res.app.get("email")   
+    const user = await User.findOne({email:email})
     if(!req.session.user_id){
       res.redirect("/")
     } 
@@ -31,8 +31,8 @@ router.get(`/deposit`, async (req,res)=>{
 
 router.get("/withdraw", async(req,res) =>{
     const useremail = req.query.name
-    let name = res.app.get("name")   
-    const user = await User.findOne({username:name})
+    let email = res.app.get("email")   
+    const user = await User.findOne({email:email})
     if(!req.session.user_id){
       res.redirect("/")
     } 
@@ -42,8 +42,8 @@ router.get("/withdraw", async(req,res) =>{
 })
 router.get("/withdraw_history", async(req,res) =>{
     const useremail = req.query.name
-    let name = res.app.get("name")   
-    const user = await User.findOne({username:name})
+    let email = res.app.get("email")   
+    const user = await User.findOne({email:email})
     if(!req.session.user_id){
       res.redirect("/")
     } 
@@ -53,8 +53,8 @@ router.get("/withdraw_history", async(req,res) =>{
 })
 router.get("/goldcheckout", async (req,res) => {
   const useremail = req.query.name
-  let name = res.app.get("name")   
-  const user = await User.findOne({username:name})
+  let email = res.app.get("email")   
+  const user = await User.findOne({email:email})
   if(!req.session.user_id){
     res.redirect("/login")
   } 
@@ -64,8 +64,8 @@ router.get("/goldcheckout", async (req,res) => {
 })
 router.get("/silvercheckout", async (req,res) => {
   const useremail = req.query.name
-  let name = res.app.get("name")   
-  const user = await User.findOne({username:name})
+  let email = res.app.get("email")   
+  const user = await User.findOne({email:email})
   if(!req.session.user_id){
     res.redirect("/login")
   } 
@@ -75,8 +75,8 @@ router.get("/silvercheckout", async (req,res) => {
 })
 router.get("/startercheckout", async (req,res) => {
   const useremail = req.query.name
-  let name = res.app.get("name")   
-  const user = await User.findOne({username:name})
+  let email = res.app.get("email")   
+  const user = await User.findOne({email:email})
   if(!req.session.user_id){
     res.redirect("/login")
   } 
