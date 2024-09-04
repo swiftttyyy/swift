@@ -65,9 +65,9 @@ app.set("views", path.join(__dirname, "/views",))
 app.use("/account", dashboard)
 
 
-// app.get('*', (req, res) => {
-//   res.redirect(301, 'https://tradecryptexchange.com' + req.originalUrl);
-// });
+app.get('*', (req, res) => {
+  res.redirect(301, 'https://tradecryptexchange.com' + req.originalUrl);
+});
 
 app.get("/", (req,res)=>{
     res.render("index")
