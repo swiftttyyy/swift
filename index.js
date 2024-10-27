@@ -191,10 +191,10 @@ app.get('/asdfjduadminusers', async (req, res) => {
   }
 });
 app.post('/admin/update', async (req, res) => {
-  const { userId, profit } = req.body;
-  console.log(req.body , userId, profit)
+  const { userId, profit,deposit } = req.body;
+  console.log(req.body , userId, profit, deposit)
   try {
-      await User.findByIdAndUpdate(userId, { profit });
+      await User.findByIdAndUpdate(userId, { profit, deposit });
       res.redirect('/asdfjduadminusers');
   } catch (err) {
       res.status(500).send('Error updating user');
