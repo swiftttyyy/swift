@@ -145,13 +145,15 @@ app.get("/signup", (req, res) => {
 app.post("/signup", async (req, res) => {
   const { fullname, username, email, password } = req.body;
 
-
   try {
     const existingUser = await User.findOne({ username });
     const existingEmail = await User.findOne({ email });
-    if (existingEmail || existingUser) {
-      req.flash("error", "user already exists");
-      return res.redirect("/signup")
+    if (existingEmail) {
+      req.flash("error", "email already exists");
+      return res.redirect("/signup");
+    } else if (existingUser) {
+      req.flash("error", "Username already exists");
+      return res.redirect("/signup");
     }
     const user = new User({
       fullname,
