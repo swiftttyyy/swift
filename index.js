@@ -144,7 +144,10 @@ app.get("/signup", (req, res) => {
 
 app.post("/signup", async (req, res) => {
   const { fullname, username, email, password } = req.body;
-
+    if(!username || !email || fullname) {
+      req.flash("error", "fill all required fields")
+      return res.redirect()
+    }
   try {
     const existingUser = await User.findOne({ username });
     const existingEmail = await User.findOne({ email });
