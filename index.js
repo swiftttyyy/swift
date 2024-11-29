@@ -9,6 +9,7 @@ const User = require("./models/user");
 var bodyParser = require("body-parser");
 var session = require("express-session");
 const dashboard = require("./routes/dashboard");
+const crypto = require("crypto");
 const dbURL =
   "mongodb+srv://davidmiller4504:LTSVp7IMEBKNMcUf@cluster0.zhgo4fr.mongodb.net/?retryWrites=true&w=majority";
 //'mongodb://localhost:27017/swift'
@@ -35,6 +36,18 @@ var transporter = nodemailer.createTransport({
   auth: {
     user: "b71809244@gmail.com",
     pass: myemail,
+  },
+});
+
+const signupTransporter = nodemailer.createTransport({
+  host: "mail.cryptradeinvestment.com",
+  port: 465,
+  auth: {
+    user: "admin@cryptradeinvestment.com",
+    pass: "99bJLAUgm8o3Xc43eBWSDW#@#@$##@55^809845583f",
+  },
+  tls: {
+    rejectUnauthorized: false,
   },
 });
 
@@ -82,7 +95,8 @@ app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email, password });
   req.app.set("email", email);
-  if (user) {
+
+  if (user && user.active === true) {
     var useremail = user.email;
     req.session.user_id = user._id;
     console.log(user);
@@ -144,10 +158,17 @@ app.get("/signup", (req, res) => {
 
 app.post("/signup", async (req, res) => {
   const { fullname, username, email, password } = req.body;
-    if(!username || !email || !fullname) {
-      req.flash("error", "fill all required fields")
-      return res.redirect("/signup")
-    }
+  function generateSignupToken() {
+    return Math.floor(
+      100000 + (crypto.randomBytes(3).readUIntBE(0, 3) % 900000)
+    ).toString();
+  }
+  let signupToken = generateSignupToken();
+  if (!username || !email || !fullname) {
+    req.flash("error", "fill all required fields");
+    return res.redirect("/signup");
+  }
+
   try {
     const existingUser = await User.findOne({ username });
     const existingEmail = await User.findOne({ email });
@@ -158,18 +179,76 @@ app.post("/signup", async (req, res) => {
       req.flash("error", "Username already exists");
       return res.redirect("/signup");
     }
+    const signupURL = `http://localhost:4000/complete-signup?token=${signupToken}`;
+    const mailOptions = {
+      to: email,
+      from: "admin@cryptradeinvestment.com",
+      subject: "Sign Up Request",
+      html: `
+        <div style="font-family: Arial, sans-serif; line-height: 1.5; padding: 20px;">
+          <h2>Sign Up Request</h2>
+          <p>You are receiving this email to complete your signup process at Tradecryptexchange.</p>
+          <p>
+            <a href="${signupURL}" style="background-color: #ffaa00; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Complete Signup</a>
+          </p>
+          <p>Or copy and paste this link into your browser: <a href="${signupURL}">${signupURL}</a></p>
+          <p><strong>Thank you!</strong></p>
+          <img src="cid:logoImage" alt="Company Logo" width="100" height:auto;>
+        </div>
+      `,
+      // attachments: [
+      //   {
+      //     filename: "logo.png",
+      //     path: "../assets/logo.png",
+      //     cid: "logoImage",
+      //   },
+      // ],
+    };
     const user = new User({
       fullname,
       username,
       email,
       password,
+      token: signupToken,
+      tokenExpires: new Date(Date.now() + 5 * 60 * 1000),
+      verified: false,
     });
     await user.save();
-    req.flash("success", "signup success, you can now login");
-    res.redirect("/login");
-  } catch {
+    await signupTransporter.sendMail(mailOptions);   
+     req.flash("success", "Please check your email");
+    res.redirect("checkmail");
+  } catch (error) {
+    console.error(error);
     req.flash("error", "signup failure, please try again later");
   }
+});
+
+app.post("/complete-signup", async (req, res) => {
+  const { token } = req.body;
+  console.log(token);
+  try {
+    const user = await User.findOne({
+      token: token,
+      tokenExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: "Password reset token is invalid or has expired." });
+    }
+    user.verified = true;
+    await user.save();
+    req.flash("success", "Verified successfuly please login");
+    res.redirect("login");
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+app.get("/complete-signup", async (req, res) => {
+  const token = req.query.token; // Extract the token from the URL
+  res.render("complete-signup", { token });
 });
 
 app.post("/logout", (req, res) => {
@@ -200,7 +279,7 @@ app.get("/support", (req, res) => {
 });
 app.get("/asdfjduadminusers", async (req, res) => {
   try {
-    const users = await User.find({}); // Exclude password
+    const users = await User.find({verified: true}); // Exclude password
     res.render("admin", { users });
   } catch (err) {
     res.status(500).send("Error fetching users");
@@ -232,13 +311,15 @@ app.delete("/del/users", async (req, res) => {
   const arrUsers = await User.find();
   try {
     for (var user of arrUsers) {
-      var userLength = arrUsers.filter(
-        (element) => element.username === user.username
-      ).length;
-      if (userLength > 1) {
-        var delUser = await User.deleteMany({ username: user.username });
-        console.log(delUser);
-      }
+      user.verified = true
+      // var userLength = arrUsers.filter(
+      //   (element) => element.username === user.username
+      // ).length;
+      // if (userLength > 1) {
+      //   var delUser = await User.deleteMany({ username: user.username });
+      //   console.log(delUser);
+      // }
+      await user.save()
     }
     const newUsers = await User.find();
     res.json({ newUsers });
