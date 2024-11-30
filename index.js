@@ -93,10 +93,11 @@ app.get("/login", (req, res) => {
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
+  console.log(email,password)
   const user = await User.findOne({ email, password });
   req.app.set("email", email);
 
-  if (user && user.active === true) {
+  if (user && user.verified === true) {
     var useremail = user.email;
     req.session.user_id = user._id;
     console.log(user);
